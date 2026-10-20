@@ -71,8 +71,8 @@ def compare_sort(
 
         return qsort_variance
 
-    qsort_fixed_pivot = make_qsort(lambda _: 0)
-    qsort_random_pivot = make_qsort(lambda lst: random.randint(0, len(lst) - 1))
+    qsort_fixed_pivot = make_qsort(lambda lst: lst[0])
+    qsort_random_pivot = make_qsort(lambda lst: random.choice(lst))
     # tim_sort = sorted
     result = []
     for size in sizes:
