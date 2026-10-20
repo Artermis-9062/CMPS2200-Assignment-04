@@ -52,6 +52,14 @@ $$W(n) = \frac{\ln(1-\delta)}{\ln(1-\epsilon)} \cdot O(w(n))$$
   algorithm that always produces the correct result, but has an
   expected runtime that depends on $w(n)$ and a success probability $\epsilon$.
 
+Run $\mathcal{A}$ on $\mathcal{I}$ repeatedly, verifying each output with $\mathcal{C}$, and return the first output that passes verification. Since $\mathcal{C}$ is deterministic and always correct, this algorithm always returns the correct result — it never returns an incorrect output; it only keeps trying until $\mathcal{A}$ succeeds.
+
+Let $T$ be the random variable for the number of trials until the first successful run of $\mathcal{A}$. Since each run succeeds independently with probability $\epsilon$, $T$ follows a geometric distribution with parameter $\epsilon$, so $\mathbb{E}[T] = 1/\epsilon$.
+
+Each trial costs $O(w(n) + v(n)) = O(w(n))$ work (run $\mathcal{A}$ then verify with $\mathcal{C}$). Therefore the expected total work is:
+
+$$\mathbb{E}[W] = \mathbb{E}[T] \cdot O(w(n)) = \frac{1}{\epsilon} \cdot O(w(n)) = O\left(\frac{w(n)}{\epsilon}\right)$$
+
 **3 Determinism versus Randomization in Quicksort**
 
 - **3b. (8 pts)** Compare running times using `compare-qsort` between variants of
