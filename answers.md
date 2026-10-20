@@ -65,4 +65,36 @@ $$\mathbb{E}[W] = \mathbb{E}[T] \cdot O(w(n)) = \frac{1}{\epsilon} \cdot O(w(n))
 - **3b. (8 pts)** Compare running times using `compare-qsort` between variants of
   Quicksort and the provided implementation of selection sort (`ssort`).
 
+Random permutations:
+
+|   n |   ssort |   qsort-fixed-pivot |   qsort-random-pivot |
+|-----|---------|---------------------|----------------------|
+| 100 |   0.057 |               0.033 |                0.040 |
+| 200 |   0.189 |               0.061 |                0.078 |
+| 400 |   0.871 |               0.136 |                0.161 |
+| 800 |   3.184 |               0.281 |                0.347 |
+
+Already sorted permutations:
+
+|   n |   ssort |   qsort-fixed-pivot |   qsort-random-pivot |
+|-----|---------|---------------------|----------------------|
+| 100 |   0.045 |               0.119 |                0.037 |
+| 200 |   0.151 |               0.372 |                0.064 |
+| 400 |   0.593 |               1.508 |                0.146 |
+| 800 |   2.414 |               6.587 |                0.384 |
+
+**Comparison to asymptotic bounds:** On random inputs, all three algorithms follow their expected growth: `ssort` is $\Theta(n^2)$ (times roughly quadruple as $n$ doubles), while both qsort variants are $O(n \lg n)$ (times grow slightly faster than linearly). The random-pivot and fixed-pivot qsort are comparable on random data.
+
+**Effect of input type:** On already sorted input, fixed-pivot qsort degrades dramatically — its runtime grows much faster than $n \lg n$ (from 0.119 ms at $n=100$ to 6.587 ms at $n=800$, roughly quadratic), because always picking the first element on sorted input produces maximally unbalanced partitions. Random-pivot qsort remains fast and consistent ($O(n \lg n)$) on sorted input, since random pivot choice avoids worst-case partitions regardless of input order. Selection sort is unaffected by input order (always $\Theta(n^2)$), as expected.
+
 - **3c. (8 pts)** Compare the fastest of your sorting implementations to the Python sorting function `sorted`, conducting the tests in 3b above.
+
+|   n |   qsort-random-pivot |   python-sorted |
+|-----|---------------------|-----------------|
+| 1000 |               0.524 |           0.068 |
+| 2000 |               1.000 |           0.138 |
+| 4000 |               2.099 |           0.297 |
+| 8000 |               4.394 |           0.666 |
+| 16000 |              10.020 |           1.601 |
+
+**Analysis:** Both algorithms exhibit $O(n \lg n)$ growth on random input, but Python's `sorted` (Timsort) is consistently an order of magnitude faster. This is because Timsort is a highly optimized hybrid (merge sort + insertion sort) implemented in C, with low constant factors, adaptive behavior on partially ordered data, and careful memory management — while our Python qsort has higher constant factors from recursion, list concatenation, and Python-level function calls.
