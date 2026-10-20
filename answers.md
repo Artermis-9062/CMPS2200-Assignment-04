@@ -28,6 +28,14 @@ $$
   comparisons, for a given $c>0$? What does this say about the
   deviation of the actual work from the expected work for Quicksort?
 
+Let $X$ be a random variable for the number of comparisons Quicksort performs, with $\mathbb{E}[X] = c_1 \cdot n \lg n = O(n \lg n)$. Set $\alpha = 10^c \cdot n \lg n$. By Markov's inequality:
+
+$$
+\mathbb{P}[X \geq 10^c n \lg n] \leq \frac{c_1 n \lg n}{10^c n \lg n} = \frac{c_1}{10^c} = O(10^{-c})
+$$
+
+So the probability that Quicksort performs $10^c n \lg n$ comparisons is at most $O(10^{-c})$. This means the actual work deviates from the expected work by a factor of $10^c$ with exponentially small probability in $c$ — large deviations from $O(n \lg n)$ are very unlikely, and with high probability Quicksort's work stays close to its expectation.
+
 **2 From "Maybe" to "Definitely"**
 
 - **2a. (10 pts)** Give an algorithm to improve the guaranteed success probability and state its work.
