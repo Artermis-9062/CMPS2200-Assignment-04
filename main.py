@@ -16,17 +16,15 @@ def qsort(a, pivot_fn):
     if len(a) <= 1:
         return a  # Must return a list !!!
 
-    pivot_idx = pivot_fn(
-        a
-    )  # pivot_fn should have a parameter is a list -> return a pivot
+    pivot = pivot_fn(a)  # pivot_fn returns a pivot value
     left = []
     right = []
     for ele in a:
-        if ele < a[pivot_idx]:
+        if ele < pivot:
             left.append(ele)
-        elif ele > a[pivot_idx]:
+        elif ele > pivot:
             right.append(ele)
-    res = qsort(left, pivot_fn) + [a[pivot_idx]] + qsort(right, pivot_fn)
+    res = qsort(left, pivot_fn) + [pivot] + qsort(right, pivot_fn)
     return res
 
 
@@ -109,4 +107,4 @@ def print_results(results):
 
 
 random.seed()
-print_results(compare_sort())  # ensure this is commented out when you submit
+# print_results(compare_sort())  # ensure this is commented out when you submit
