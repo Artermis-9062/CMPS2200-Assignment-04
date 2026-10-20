@@ -13,16 +13,15 @@ Place all written answers from `assignment-04.md` here for easier grading.
 - **1a. (5 pts)** What is the probability that Quicksort does $\Omega({n^2})$
   comparisons?
 
-Consider $X$ is a random variable such that $X$ is the total comparisons executed by `Quicksort`.
+Let $X$ be a random variable for the number of comparisons Quicksort performs, with $\mathbb{E}[X] = c \cdot n \lg n = O(n \lg n)$.
 
-Then, $\mathbb{E} [X] = c_1 \cdot n \log n \in O(n \log n ) $.
-
-Therefore,
+The event that Quicksort does $\Omega(n^2)$ comparisons means $X \geq k \cdot n^2$ for some constant $k > 0$. Set $\alpha = k n^2$. By Markov's inequality:
 
 $$
-P[X \ge n^2] \le \frac{c_1 n \log n}{c_2 \cdot n^2} = \frac{c_2 \log n}{n} \\[8pt]
-\Rightarrow P[X = \Omega(n^2)] \le \frac{c_1}{c_2} \frac{\log n}{n} = O(\frac{\log n}{n})
+\mathbb{P}[X \geq k n^2] \leq \frac{c \cdot n \lg n}{k \cdot n^2} = \frac{c}{k} \cdot \frac{\lg n}{n} = O\left(\frac{\lg n}{n}\right)
 $$
+
+So the probability that Quicksort performs $\Omega(n^2)$ comparisons is at most $O(\lg n / n)$, which tends to 0 as $n \to \infty$.
 
 - **1b. (5 pts)** What is the probability that Quicksort does $10^c n \lg n$
   comparisons, for a given $c>0$? What does this say about the
