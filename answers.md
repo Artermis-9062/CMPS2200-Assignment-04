@@ -21,7 +21,7 @@ $$
 \mathbb{P}[X \geq k n^2] \leq \frac{c \cdot n \lg n}{k \cdot n^2} = \frac{c}{k} \cdot \frac{\lg n}{n} = O\left(\frac{\lg n}{n}\right)
 $$
 
-So the probability that Quicksort performs $\Omega(n^2)$ comparisons is at most $O(\lg n / n)$, which tends to 0 as $n \to \infty$.
+So the probability that Quicksort performs $\Omega(n^2)$ comparisons is at most $O(\lg n / n)$.
 
 - **1b. (5 pts)** What is the probability that Quicksort does $10^c n \lg n$
   comparisons, for a given $c>0$? What does this say about the
