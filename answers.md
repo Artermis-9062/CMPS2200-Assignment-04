@@ -13,7 +13,7 @@ Place all written answers from `assignment-04.md` here for easier grading.
 - **1a. (5 pts)** What is the probability that Quicksort does $\Omega({n^2})$
   comparisons?
 
-Let $X$ be a random variable for the number of comparisons Quicksort performs, with $\mathbb{E}[X] = c \cdot n \lg n = O(n \lg n)$.
+Let $X$ be a random variable for the number of comparisons `Quicksort` performs, with $\mathbb{E}[X] = c \cdot n \lg n = O(n \lg n)$.
 
 The event that Quicksort does $\Omega(n^2)$ comparisons means $X \geq k \cdot n^2$ for some constant $k > 0$. Set $\alpha = k n^2$. By Markov's inequality:
 
@@ -39,10 +39,18 @@ So the probability that Quicksort performs $10^c n \lg n$ comparisons is at most
 
 - **2a. (10 pts)** Give an algorithm to improve the guaranteed success probability and state its work.
 
+$\mathcal{A}'(\mathcal{I}, \delta)$ runs $\mathcal{A}$ on $\mathcal{I}$ repeatedly and verifies each output with $\mathcal{C}$ until one passes, returning the first correct output; if none of the $k$ attempts succeed, it reports failure. Each attempt costs $O(w(n) + v(n)) = O(w(n))$ work since $v(n) \in O(w(n))$.
+
+We want $\mathcal{A}'$ to succeed with probability at least $\delta$, so we need $k$ attempts such that
+$$1 - (1-\epsilon)^k \ge \delta \Rightarrow k \cdot \ln(1-\epsilon) \le \ln(1-\delta)$$
+This gives us $k \ge \frac{\ln(1-\delta)}{\ln(1-\epsilon)}$ (since $\ln(1-\epsilon) < 0$).
+
+So the work of $\mathcal{A}'$ with success probability $\delta$ is:
+$$W(n) = \frac{\ln(1-\delta)}{\ln(1-\epsilon)} \cdot O(w(n))$$
+
 - **2b. (6 pts)** Show how to convert $\mathcal{A}$ into an
   algorithm that always produces the correct result, but has an
-  expected runtime that depends on $w(n)$ and a success probability
-  $\epsilon$.
+  expected runtime that depends on $w(n)$ and a success probability $\epsilon$.
 
 **3 Determinism versus Randomization in Quicksort**
 
